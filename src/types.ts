@@ -29,8 +29,8 @@ export type PhotoGraphCard = {
   article: HTMLElement;
 };
 
-export enum PhotographerDetails {
+export enum PhotographerDetail {
   price = "Tarifs",
-  tagline = "Device",
+  tagline = "Devise",
   location = "Localication",
 }
