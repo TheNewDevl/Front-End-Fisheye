@@ -6,8 +6,49 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    padding: 10px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "a b c";
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
 }
 
+.photograph-header div {
+    grid-area: a;
+    justify-self: start;
+}
+
+.photograph-header h1 {
+    font-size: 64px;
+    margin: 0;
+}
+
+.photograph-header img {
+    justify-self: flex-end;
+}
+
+.photograph-header .photographer-details {
+    text-align: start;
+}
+
+.photograph-header .photographer-location {
+    color: #901C1C;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.photograph-header .photographer-tagline {
+    font-size: 18px;
+    color: #525252;
+}
+
+.photograph-header .photographer-price {
+    display: none;
+}
+
+/* MODAL */
 .contact_button {
     font-size: 20px;
     font-weight: bold;

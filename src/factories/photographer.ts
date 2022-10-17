@@ -12,32 +12,47 @@ export function photographerFactory(data: Photographer) {
     const img = document.createElement("img");
     img.setAttribute("src", picture);
     img.setAttribute("alt", `Photo de ${name}`);
+    img.classList.add("photographer-img");
     return img;
   };
 
-  // Return h2 that contains the photographer name
-  const getH2 = (): HTMLHeadingElement => {
-    const h2 = document.createElement("h2");
-    h2.textContent = name;
-    return h2;
+  // Return h1 or h2 ( depend on page pathname ) that contains the photographer name
+  const getHeading = (): HTMLHeadingElement => {
+    const path = window.location.pathname;
+    const headingLevel = /photographer.html/.test(path) ? "h1" : "h2";
+
+    const h: HTMLHeadingElement = document.createElement(headingLevel);
+    h.classList.add("photographer-name");
+    h.textContent = name;
+    return h;
   };
 
   // Return a span that text content & aria-label will depend on param
   const getDetailSpan = (type: PhotographerDetail): HTMLSpanElement => {
     const span = document.createElement("span");
-    span.textContent =
-      type === PhotographerDetail.price
-        ? pricing
-        : PhotographerDetail.location
-        ? location
-        : tagline;
+    if (type === PhotographerDetail.price) {
+      span.textContent = pricing;
+      span.classList.add("photographer-price");
+    }
+    if (type === PhotographerDetail.location) {
+      span.textContent = location;
+      span.classList.add("photographer-location");
+    }
+    if (type === PhotographerDetail.tagline) {
+      span.textContent = tagline;
+      span.classList.add("photographer-tagline");
+    }
+    span.setAttribute("role", "note");
     span.setAttribute("aria-label", `${type} de ${name}`);
+    console.log(span);
     return span;
   };
 
   // Return a p element that contains price, tagline & location spans
   const getDetailsP = (): HTMLParagraphElement => {
     const p = document.createElement("p");
+    p.classList.add("photographer-details");
+
     const spans = [
       getDetailSpan(PhotographerDetail.location),
       getDetailSpan(PhotographerDetail.tagline),
@@ -53,7 +68,7 @@ export function photographerFactory(data: Photographer) {
     link.setAttribute("href", `./photographer.html?id=${id}`);
     link.setAttribute("aria-label", `${name} Page`);
 
-    const children: HTMLElement[] = [getImg(), getH2()];
+    const children: HTMLElement[] = [getImg(), getHeading()];
     children.forEach((child) => link.appendChild(child));
 
     return link;
@@ -71,5 +86,22 @@ export function photographerFactory(data: Photographer) {
     return article;
   }
 
-  return { name, picture, getUserCardDOM, getH2, getImg };
+  const getPhotographerHeaderDOM = () => {
+    const container = document.createElement("div");
+    const h1 = getHeading();
+    const p = getDetailsP();
+
+    container.appendChild(h1);
+    container.appendChild(p);
+    return container;
+  };
+
+  return {
+    name,
+    picture,
+    getUserCardDOM,
+    getHeading,
+    getImg,
+    getPhotographerHeaderDOM,
+  };
 }

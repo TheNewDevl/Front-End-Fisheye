@@ -1,13 +1,14 @@
-import {photographerFactory} from "../factories/photographer.js";
-import {DataType, PhotographersArray} from "../types";
+import { PhotographersArray } from "../types.js";
+import getData from "../utils/fetch.js";
+import { photographerFactory } from "../factories/photographer.js";
 
 async function getPhotographers(): Promise<PhotographersArray> {
   //fetch data from json
   try {
-    const data: DataType = await fetch('../../data/photographers.json').then((res) => res.json())
-    return data.photographers
+    const { photographers } = await getData();
+    return photographers;
   } catch (e) {
-    console.log(`L'erreur suivante est survenue : ${e.message}`)
+    console.log(`L'erreur suivante est survenue : ${e.message}`);
   }
 }
 
@@ -28,4 +29,5 @@ async function init() {
 }
 
 init();
-    
+
+export default getPhotographers;
