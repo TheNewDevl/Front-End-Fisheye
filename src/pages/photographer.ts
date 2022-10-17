@@ -1,14 +1,25 @@
 //Mettre le code JavaScript lié à la page photographer.html
-import { Photographer } from "../types.js";
+import { MediaArray, Photographer } from "../types.js";
 import { photographerFactory } from "../factories/photographer.js";
 import getData from "../utils/fetch.js";
+import { MediaFactory } from "../factories/media.js";
 
-async function getPhotographer(id): Promise<Photographer> {
-  const { photographers } = await getData();
-  return photographers.find((photographer) => photographer.id === id);
+type returnData = {
+  photographer: Photographer;
+  medias: MediaArray;
+};
+
+async function getDatas(id: Photographer["id"]): Promise<returnData> {
+  const { photographers, media } = await getData();
+  const photographer = photographers.find(
+    (photographer) => photographer.id === id
+  );
+  const medias = media.filter((m) => m.photographerId === id);
+
+  return { photographer, medias };
 }
 
-async function displayData(photographer) {
+async function displayPhotographerHeader(photographer) {
   const photographerHeader = document.querySelector(".photograph-header");
   const photographerModel = photographerFactory(photographer);
 
@@ -19,14 +30,24 @@ async function displayData(photographer) {
   photographerHeader.appendChild(photographerInfos);
 }
 
+async function displayMedias(medias: MediaArray) {
+  const container = document.querySelector(".medias-container");
+  medias.forEach((media) => {
+    const { getMediaDOM } = MediaFactory(media);
+    const image = getMediaDOM();
+    container.appendChild(image);
+  });
+}
+
 async function init() {
   const urlParams = new URL(document.location.href).searchParams;
   const id = parseInt(urlParams.get("id"));
 
   // Get photograoher Data
-  const photographer = await getPhotographer(id);
+  const { photographer, medias } = await getDatas(id);
 
-  displayData(photographer);
+  displayPhotographerHeader(photographer);
+  displayMedias(medias);
 }
 
 init();

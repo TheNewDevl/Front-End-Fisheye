@@ -13,7 +13,8 @@ export type Media = {
   id: number;
   photographerId: Photographer["id"];
   title: string;
-  image: string;
+  image?: string;
+  video?: string;
   likes: number;
   date: Date;
   price: number;

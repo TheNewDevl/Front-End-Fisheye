@@ -44,7 +44,6 @@ export function photographerFactory(data: Photographer) {
     }
     span.setAttribute("role", "note");
     span.setAttribute("aria-label", `${type} de ${name}`);
-    console.log(span);
     return span;
   };
 
