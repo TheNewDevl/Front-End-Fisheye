@@ -7,9 +7,15 @@ export function MediaFactory(data: Media) {
 
   const getImg = () => {
     const elementType = video ? "video" : "img";
-    const media = document.createElement(elementType);
+
+    const media: HTMLVideoElement | HTMLImageElement =
+      document.createElement(elementType);
+
     media.setAttribute("src", src);
     media.setAttribute("role", "link");
+    if (video) {
+      media.setAttribute("autoplay", "");
+    }
     media.setAttribute("alt", title);
     return media;
   };
@@ -18,7 +24,10 @@ export function MediaFactory(data: Media) {
     const article = document.createElement("article");
     const media = getImg();
 
-    article.appendChild(media);
+    const link = document.createElement("a");
+    link.setAttribute("href", src);
+    link.appendChild(media);
+    article.appendChild(link);
     return article;
   }
 

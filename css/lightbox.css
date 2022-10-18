@@ -1,0 +1,85 @@
+/* LIGHTBOX */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1;
+    overflow: auto;
+    opacity: 1;
+    animation: lightbowIn 500ms;
+    transition: opacity 500ms;
+}
+
+.lightbox.fadeOut {
+    opacity: 0;
+}
+
+.lightbox-next,
+.lightbox-prev {
+    background: url('../assets/icons/arrow.svg') center center / 30px 48px no-repeat;
+    width: 100px;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+    right: 0;
+}
+
+.lightbox-prev {
+    left: 0;
+    right: auto;
+    transform: rotate(180deg);
+}
+
+.lightbox-close {
+    height: 42px;
+    width: 42px;
+    background: url("../assets/icons/close.svg") center center / 100% 100% no-repeat;
+    top: 30px;
+    right: 30px;
+    z-index: 3;
+}
+
+.lightbox button {
+    cursor: pointer;
+    border: none;
+    color: transparent;
+    transition: opacity 0.3s;
+    opacity: 0.5;
+    position: fixed;
+}
+
+.lightbox button:hover {
+    opacity: 1;
+}
+
+.lightbox-container img, .lightbox-container video {
+    max-width: 100%;
+    height: auto;
+    animation: lightbowIn 500ms;
+}
+
+.lightbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    min-height: 100vh;
+}
+
+.lightbox-loader {
+    width: 38px;
+    height: 38px;
+    opacity: 0.5;
+    background: url("../assets/icons/loader.svg") center center no-repeat;
+}
+
+@keyframes lightbowIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
