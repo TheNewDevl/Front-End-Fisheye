@@ -13,9 +13,12 @@ export function MediaFactory(data: Media) {
 
     media.setAttribute("src", src);
     media.setAttribute("role", "link");
-    if (video) {
-      media.setAttribute("autoplay", "");
+
+    if (media.tagName === "VIDEO") {
+      media.setAttribute("muted", "true");
+      media.setAttribute("autoplay", "true");
     }
+
     media.setAttribute("alt", title);
     return media;
   };
