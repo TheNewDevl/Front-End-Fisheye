@@ -7,7 +7,6 @@
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
     padding: 10px 50px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -55,13 +54,20 @@
 .medias-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
-    border: 2px solid red;
+    justify-content: space-between;
+    row-gap: 2em;
 }
 
 .medias-container article {
-    width: 350px;
-    height: 300px;
+    width: 30%;
+    height: 350px;
+}
+
+.medias-container article > a {
+    border-radius: 5px;
+    overflow: hidden;
+    display: block;
+    height: calc(100% - 50px);
 }
 
 .medias-container article img,
@@ -70,6 +76,37 @@
     width: 100%;
     height: 100%;
 }
+
+.media-banner {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    color: #901C1C;
+    align-items: center;
+}
+
+.media-banner p {
+    font-size: 24px;
+    line-height: 31px;
+}
+
+.media-banner-likes {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.media-banner-likes .likes-img {
+    width: 19px;
+    height: 19px;
+}
+
+.likes-number {
+    font-weight: 600;
+}
+
 
 /* MODAL */
 .contact_button {
@@ -137,4 +174,18 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 992px) {
+    .medias-container article {
+        width: 48%;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .medias-container article {
+        width: 100%;
+        height: 350px;
+    }
 }
