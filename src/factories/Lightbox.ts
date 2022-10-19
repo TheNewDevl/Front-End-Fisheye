@@ -52,6 +52,9 @@ export function Lightbox(url: ImgUrl, images: ImgUrl[]) {
     isVideo && media.setAttribute("autoplay", "");
     isVideo && media.setAttribute("controls", "");
 
+    //prevent changing img when try to advance or rewind the video on keyboard
+    isVideo && media.addEventListener("keyup", (e) => e.stopPropagation());
+
     //create loader and append it to the container
     const loader = document.createElement("div");
     loader.classList.add("lightbox-loader");
