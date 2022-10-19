@@ -31,10 +31,11 @@ async function displayPhotographerHeader(photographer) {
   photographerHeader.appendChild(photographerInfos);
 }
 
-async function displayMedias(medias: MediaArray) {
+async function displayMedias(medias: MediaArray, photographer: Photographer) {
+  const photographerModel = photographerFactory(photographer); //TODO refactor
   const container = document.querySelector(".medias-container");
   medias.forEach((media) => {
-    const { getMediaDOM } = MediaFactory(media);
+    const { getMediaDOM } = MediaFactory(media, photographerModel);
     const image = getMediaDOM();
     container.appendChild(image);
   });
@@ -48,8 +49,7 @@ async function init() {
   const { photographer, medias } = await getDatas(id);
 
   await displayPhotographerHeader(photographer);
-  await displayMedias(medias);
-
+  await displayMedias(medias, photographer);
   const links = [
     ...document.querySelectorAll(
       'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'

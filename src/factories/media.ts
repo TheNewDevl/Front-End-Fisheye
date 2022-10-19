@@ -1,6 +1,6 @@
-import { Media } from "../types";
+import { Media, PhotographerDetail } from "../types.js";
 
-export function MediaFactory(data: Media) {
+export function MediaFactory(data: Media, photographerFactory) {
   const { photographerId, title, image, video, likes } = data;
 
   const src = `assets/photographers/${photographerId}/${image ? image : video}`;
@@ -48,7 +48,16 @@ export function MediaFactory(data: Media) {
     return bannerDiv;
   };
 
+  const getInsert = () => {
+    const insert = document.createElement("p");
+    insert.classList.add("fixed-insert");
+    const price = photographerFactory.getDetailSpan(PhotographerDetail.price);
+    insert.appendChild(price);
+    return insert;
+  };
+
   function getMediaDOM() {
+    document.body.appendChild(getInsert());
     const article = document.createElement("article");
     const media = getImg();
 
@@ -64,5 +73,5 @@ export function MediaFactory(data: Media) {
     return article;
   }
 
-  return { getMediaDOM };
+  return { getMediaDOM, getInsert };
 }

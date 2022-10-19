@@ -102,5 +102,6 @@ export function photographerFactory(data: Photographer) {
     getHeading,
     getImg,
     getPhotographerHeaderDOM,
+    getDetailSpan,
   };
 }
