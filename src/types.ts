@@ -35,3 +35,15 @@ export enum PhotographerDetail {
   tagline = "Devise",
   location = "Localication",
 }
+
+export type ValidatorReturn = {
+  validity: boolean;
+  error: string;
+};
+
+export type Validator = {
+  firstName: (input: HTMLInputElement) => ValidatorReturn;
+  lastName: (input: HTMLInputElement) => ValidatorReturn;
+  email: (input: HTMLInputElement) => ValidatorReturn;
+  message: (input: HTMLInputElement) => ValidatorReturn;
+};

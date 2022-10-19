@@ -255,3 +255,8 @@ input {
         height: unset;
     }
 }
+
+.input-error {
+    font-size: 14px;
+    color: #FFF;
+}
