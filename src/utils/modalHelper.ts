@@ -17,7 +17,7 @@ export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
     mainContent.forEach((item) => {
       item.setAttribute("aria-hidden", "true");
     });
-    modal.style.display = "block";
+    modal.style.display = "flex";
     modal.setAttribute("aria-hidden", "false");
     closeBtn.focus();
 

@@ -103,7 +103,7 @@ h1 {
         width: 100%;
     }
 
-    header {
+    body + header {
         flex-direction: column;
     }
 

@@ -4,6 +4,7 @@ import { photographerFactory } from "../factories/photographer.js";
 import getData from "../utils/fetch.js";
 import { MediaFactory } from "../factories/media.js";
 import { Lightbox } from "../factories/Lightbox.js";
+import { handleForm } from "../utils/contactForm.js";
 
 type returnData = {
   photographer: Photographer;
@@ -66,6 +67,8 @@ async function init() {
       lightbox.init();
     })
   );
+
+  handleForm(photographer.name);
 }
 
 init();
