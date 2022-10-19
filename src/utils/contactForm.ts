@@ -1,9 +1,10 @@
-function displayModal() {
-    const modal = document.getElementById("contact_modal");
-	modal.style.display = "block";
-}
+import { modalHelper } from "./modalHelper.js";
 
-function closeModal() {
-    const modal = document.getElementById("contact_modal");
-    modal.style.display = "none";
-}
+const CTA: HTMLElement = document.querySelector(".contact_button");
+const form: HTMLElement = document.getElementById("contact_modal");
+
+export const handleForm = () => {
+  const { onOpenModal } = modalHelper(form, CTA);
+
+  CTA.addEventListener("click", onOpenModal);
+};
