@@ -1,6 +1,9 @@
 export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
   const mainContent = document.querySelectorAll("header, main, footer");
 
+  const keyUp = (e) => {
+    e.key === "Escape" && onModalClose();
+  };
   const onModalClose = () => {
     mainContent.forEach((item) => {
       item.setAttribute("aria-hidden", "false");
@@ -9,6 +12,9 @@ export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("no-scroll");
     openBtn.focus();
+
+    // remove listener
+    document.removeEventListener("keyup", keyUp);
   };
 
   const onOpenModal = () => {
@@ -23,6 +29,9 @@ export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
 
     document.body.classList.add("no-scroll");
     closeBtn.addEventListener("click", onModalClose);
+
+    // listen to escape click and close modal
+    document.addEventListener("keyup", keyUp);
   };
 
   return { onModalClose, onOpenModal };
