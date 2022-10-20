@@ -1,4 +1,4 @@
-import { Media, PhotographerDetail, SortEnum } from "../types.js";
+import { Media } from "../types.js";
 
 export function MediaFactory(data: Media) {
   const { photographerId, title, image, video, likes, date } = data;
@@ -24,7 +24,6 @@ export function MediaFactory(data: Media) {
   };
 
   const handleLike = (e) => {
-    const savedLikes = localStorage.getItem("likes");
     const number = e.currentTarget.closest(
       ".media-banner-likes"
     ).firstElementChild;
@@ -39,9 +38,11 @@ export function MediaFactory(data: Media) {
     const titleP = document.createElement("p");
     titleP.textContent = title;
 
-    const likesContainer = document.createElement("div");
+    const likesContainer = document.createElement("button");
     likesContainer.classList.add("media-banner-likes");
-    const likesNumber = document.createElement("p");
+    likesContainer.setAttribute("aria-label", "Likes");
+
+    const likesNumber = document.createElement("span");
     likesNumber.textContent = likes.toString();
     likesNumber.classList.add("likes-number");
 
@@ -56,9 +57,9 @@ export function MediaFactory(data: Media) {
     bannerDiv.appendChild(likesContainer);
 
     //LIKES MANAGEMENT
-    img.addEventListener("click", handleLike);
-
+    likesContainer.addEventListener("click", handleLike);
     //////
+
     return bannerDiv;
   };
 
