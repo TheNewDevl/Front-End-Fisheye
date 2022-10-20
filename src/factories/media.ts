@@ -3,7 +3,9 @@ import { likesHelper } from "./likes.js";
 
 export function MediaFactory(data: Media) {
   const { photographerId, title, image, video, likes, date, id } = data;
+  const { savedLikes, addLike, removeLike } = likesHelper(id, photographerId);
 
+  const isLiked = savedLikes[photographerId]?.includes(id);
   const src = `assets/photographers/${photographerId}/${image ? image : video}`;
 
   const getImg = () => {
@@ -26,12 +28,13 @@ export function MediaFactory(data: Media) {
 
   const handleLike = (e) => {
     const { savedLikes, addLike, removeLike } = likesHelper(id, photographerId);
+    const isLiked = savedLikes[photographerId]?.includes(id);
 
     const numberContainer = e.currentTarget.closest(
       ".media-banner-likes"
     ).firstElementChild;
 
-    if (savedLikes[photographerId] && savedLikes[photographerId].includes(id)) {
+    if (isLiked) {
       removeLike();
       numberContainer.textContent = likes.toString();
     } else {
@@ -52,7 +55,7 @@ export function MediaFactory(data: Media) {
     likesContainer.setAttribute("aria-label", "Likes");
 
     const likesNumber = document.createElement("span");
-    likesNumber.textContent = likes.toString();
+    likesNumber.textContent = (isLiked ? likes + 1 : likes).toString();
     likesNumber.classList.add("likes-number");
 
     const img = document.createElement("img");
