@@ -1,7 +1,7 @@
 import { Media, Photographer } from "../types.js";
 
 export const likesHelper = (
-  id: Media["id"],
+  id: Media["id"] | null,
   photographerId: Photographer["id"]
 ) => {
   const ls = JSON.parse(localStorage.getItem("likes"));

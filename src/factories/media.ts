@@ -33,7 +33,6 @@ export function MediaFactory(data: Media) {
     const numberContainer = e.currentTarget.closest(
       ".media-banner-likes"
     ).firstElementChild;
-
     if (isLiked) {
       removeLike();
       numberContainer.textContent = likes.toString();
@@ -41,6 +40,10 @@ export function MediaFactory(data: Media) {
       addLike();
       numberContainer.textContent = (likes + 1).toString();
     }
+
+    // when this event is catched, the total likes will be updated
+    const likeEvent = new Event("like");
+    dispatchEvent(likeEvent);
   };
 
   const getBottombanner = () => {
