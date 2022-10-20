@@ -3,7 +3,7 @@ import { likesHelper } from "./likes.js";
 
 export function MediaFactory(data: Media) {
   const { photographerId, title, image, video, likes, date, id } = data;
-  const { savedLikes, addLike, removeLike } = likesHelper(id, photographerId);
+  const { savedLikes } = likesHelper(id, photographerId);
 
   const isLiked = savedLikes[photographerId]?.includes(id);
   const src = `assets/photographers/${photographerId}/${image ? image : video}`;
