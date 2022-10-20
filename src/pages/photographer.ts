@@ -1,10 +1,11 @@
 //Mettre le code JavaScript lié à la page photographer.html
-import { MediaArray, Photographer } from "../types.js";
+import { MediaArray, Photographer, SortEnum } from "../types.js";
 import { photographerFactory } from "../factories/photographer.js";
 import getData from "../utils/fetch.js";
 import { MediaFactory } from "../factories/media.js";
 import { Lightbox } from "../factories/Lightbox.js";
 import { initForm } from "../factories/contactForm.js";
+import { Sort } from "../utils/sortFns.js";
 
 type returnData = {
   photographer: Photographer;
@@ -21,9 +22,9 @@ async function getDatas(id: Photographer["id"]): Promise<returnData> {
   return { photographer, medias };
 }
 
-async function displayPhotographerHeader(photographer) {
+async function displayPhotographerHeader(photographer, medias) {
   const photographerHeader = document.querySelector(".photograph-header");
-  const photographerModel = photographerFactory(photographer);
+  const photographerModel = photographerFactory(photographer, medias);
 
   const photographerImg = photographerModel.getImg();
   const photographerInfos = photographerModel.getPhotographerHeaderDOM();
@@ -33,12 +34,18 @@ async function displayPhotographerHeader(photographer) {
 }
 
 async function displayMedias(medias: MediaArray, photographer: Photographer) {
-  const photographerModel = photographerFactory(photographer); //TODO refactor
   const container = document.querySelector(".medias-container");
   medias.forEach((media) => {
-    const { getMediaDOM } = MediaFactory(media, photographerModel);
+    const { getMediaDOM } = MediaFactory(media);
     const image = getMediaDOM();
     container.appendChild(image);
+  });
+}
+
+function sortMedias() {
+  const select = document.querySelector("select");
+  select.addEventListener("change", (e: InputEvent) => {
+    if (SortEnum[select.value] !== undefined) Sort(SortEnum[select.value]);
   });
 }
 
@@ -49,7 +56,7 @@ async function init() {
   // Get photograoher Data
   const { photographer, medias } = await getDatas(id);
 
-  await displayPhotographerHeader(photographer);
+  await displayPhotographerHeader(photographer, medias);
   await displayMedias(medias, photographer);
   const links = [
     ...document.querySelectorAll(
@@ -70,6 +77,9 @@ async function init() {
 
   //init form modal
   initForm(photographer.name);
+
+  //init sort event listener on select
+  sortMedias();
 }
 
 init();

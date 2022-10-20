@@ -1,4 +1,5 @@
 @import url('lightbox.css');
+@import url('custom-select.css');
 
 #contact_modal {
     display: none;

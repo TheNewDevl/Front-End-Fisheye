@@ -1,0 +1,28 @@
+.custom-select {
+    margin: 1em 0 2em;
+}
+
+.custom-select label {
+    width: fit-content;
+    color: #000;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 23px;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    margin-left: 1em;
+    color: #fff;
+    padding: 20px 50px 20px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+    background: #901C1C url('data:image/svg+xml;charset=US-ASCII,<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14.12 0.453125L8 6.55979L1.88 0.453125L0 2.33312L8 10.3331L16 2.33312L14.12 0.453125Z" fill="white"/></svg>') no-repeat center right 15px;
+}
+
+select option {
+    font-weight: normal;
+}

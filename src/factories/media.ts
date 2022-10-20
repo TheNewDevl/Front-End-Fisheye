@@ -1,7 +1,7 @@
-import { Media, PhotographerDetail } from "../types.js";
+import { Media, PhotographerDetail, SortEnum } from "../types.js";
 
-export function MediaFactory(data: Media, photographerFactory) {
-  const { photographerId, title, image, video, likes } = data;
+export function MediaFactory(data: Media) {
+  const { photographerId, title, image, video, likes, date } = data;
 
   const src = `assets/photographers/${photographerId}/${image ? image : video}`;
 
@@ -21,6 +21,15 @@ export function MediaFactory(data: Media, photographerFactory) {
 
     media.setAttribute("alt", title);
     return media;
+  };
+
+  const handleLike = (e) => {
+    const savedLikes = localStorage.getItem("likes");
+    const number = e.currentTarget.closest(
+      ".media-banner-likes"
+    ).firstElementChild;
+    const newLikes = likes + 1;
+    number.textContent = newLikes.toString();
   };
 
   const getBottombanner = () => {
@@ -45,20 +54,19 @@ export function MediaFactory(data: Media, photographerFactory) {
     likesContainer.appendChild(img);
     bannerDiv.appendChild(titleP);
     bannerDiv.appendChild(likesContainer);
+
+    //LIKES MANAGEMENT
+    img.addEventListener("click", handleLike);
+
+    //////
     return bannerDiv;
   };
 
-  const getInsert = () => {
-    const insert = document.createElement("p");
-    insert.classList.add("fixed-insert");
-    const price = photographerFactory.getDetailSpan(PhotographerDetail.price);
-    insert.appendChild(price);
-    return insert;
-  };
-
   function getMediaDOM() {
-    document.body.appendChild(getInsert());
     const article = document.createElement("article");
+    article.setAttribute("data-likes", `${likes}`);
+    article.setAttribute("data-date", `${date}`);
+    article.setAttribute("data-title", `${title}`);
     const media = getImg();
 
     const link = document.createElement("a");
@@ -73,5 +81,5 @@ export function MediaFactory(data: Media, photographerFactory) {
     return article;
   }
 
-  return { getMediaDOM, getInsert };
+  return { getMediaDOM };
 }

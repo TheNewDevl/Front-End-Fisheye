@@ -47,3 +47,9 @@ export type Validator = {
   email: (input: HTMLInputElement) => ValidatorReturn;
   message: (input: HTMLInputElement) => ValidatorReturn;
 };
+
+export enum SortEnum {
+  popularity,
+  date,
+  title,
+}
