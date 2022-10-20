@@ -92,6 +92,7 @@ export function photographerFactory(data: Photographer) {
 
     container.appendChild(h1);
     container.appendChild(p);
+    container.appendChild(getInsert());
     return container;
   };
 

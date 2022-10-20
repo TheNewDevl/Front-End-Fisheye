@@ -118,9 +118,14 @@
     padding: 21px 34px;
     background: #DB8876;
     border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 2em;
 }
 
 .fixed-insert > * {
+    padding: 0;
+    margin: 0;
     color: #000 !important;
     font-size: 24px !important;
     font-weight: 500 !important;
@@ -255,6 +260,15 @@ input {
     .contact_button {
         height: unset;
     }
+}
+
+form button:hover, select:hover, .contact_button {
+    transition: background-color 300ms, color 300ms;
+}
+
+form button:hover, select:hover, .contact_button:hover {
+    background-color: #D3573C;
+    color: #000;
 }
 
 .input-error {
