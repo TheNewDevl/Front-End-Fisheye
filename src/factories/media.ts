@@ -1,7 +1,8 @@
 import { Media } from "../types.js";
+import { likesHelper } from "./likes.js";
 
 export function MediaFactory(data: Media) {
-  const { photographerId, title, image, video, likes, date } = data;
+  const { photographerId, title, image, video, likes, date, id } = data;
 
   const src = `assets/photographers/${photographerId}/${image ? image : video}`;
 
@@ -24,11 +25,19 @@ export function MediaFactory(data: Media) {
   };
 
   const handleLike = (e) => {
-    const number = e.currentTarget.closest(
+    const { savedLikes, addLike, removeLike } = likesHelper(id, photographerId);
+
+    const numberContainer = e.currentTarget.closest(
       ".media-banner-likes"
     ).firstElementChild;
-    const newLikes = likes + 1;
-    number.textContent = newLikes.toString();
+
+    if (savedLikes[photographerId] && savedLikes[photographerId].includes(id)) {
+      removeLike();
+      numberContainer.textContent = likes.toString();
+    } else {
+      addLike();
+      numberContainer.textContent = (likes + 1).toString();
+    }
   };
 
   const getBottombanner = () => {
