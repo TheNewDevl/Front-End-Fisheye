@@ -1,7 +1,7 @@
 @import url('lightbox.css');
 @import url('custom-select.css');
 
-#contact_modal {
+#modal {
     display: none;
 }
 
@@ -155,7 +155,7 @@
     cursor: pointer;
 }
 
-#contact_modal {
+#modal {
     position: fixed;
     inset: 0;
     display: none;
@@ -199,6 +199,10 @@ form {
     align-items: flex-start;
 }
 
+form .contact_button {
+    margin-top: 20px;
+}
+
 form label {
     width: 100%;
     color: #312E2E;
@@ -214,6 +218,7 @@ input {
     height: 68px;
     border: none;
     border-radius: 5px;
+    padding: 0 20px;
 }
 
 #message {

@@ -34,31 +34,32 @@
   <section class="medias-container">
   </section>
 </main>
-<div id="contact_modal" role="dialog" aria-describedby="modal-title">
-  <div class="modal">
+<div id="modal">
+  <div class="modal" role="dialog" aria-labelledby="modal-title">
     <header>
-      <h1 id="modal-title"></h1>
+      <h1 id="modal-title">Contactez moi</h1>
       <button class="close-btn">
         <img src="assets/icons/close.svg" alt="Close contact form"/>
       </button>
     </header>
-    <form>
+    <main>
+      <form>
+        <label for="firstName">Prénom
+          <input aria-required="true" required type="text" id="firstName"/>
+        </label>
+        <label for="lastName">Nom
+          <input aria-required="true" required type="text" id="lastName"/>
+        </label>
+        <label for="email">Email
+          <input aria-required="true" required type="text" id="email"/>
+        </label>
+        <label for="message">Votre message
+          <input aria-required="true" required type="text" id="message"/>
+        </label>
 
-      <label for="firstName">Prénom
-        <input type="text" id="firstName"/>
-      </label>
-      <label for="lastName">Nom
-        <input type="text" id="lastName"/>
-      </label>
-      <label for="email">Email
-        <input type="text" id="email"/>
-      </label>
-      <label for="message">Votre message
-        <input type="text" id="message"/>
-      </label>
-
-      <button class="contact_button">Envoyer</button>
-    </form>
+        <button class="contact_button">Envoyer</button>
+      </form>
+    </main>
   </div>
 </div>
 <script type="module" src="scripts/pages/photographer.js"></script>

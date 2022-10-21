@@ -3,7 +3,7 @@ import { Photographer, ValidatorReturn } from "../types";
 import { validator } from "../utils/formValidators.js";
 
 const CTA: HTMLElement = document.querySelector(".contact_button");
-const form: HTMLElement = document.getElementById("contact_modal");
+const form: HTMLElement = document.getElementById("modal");
 
 /**if no existing error, create a p element and append it to the closest form-data container*/
 export const createError = (
