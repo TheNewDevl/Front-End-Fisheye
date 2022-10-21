@@ -53,3 +53,14 @@ export enum SortEnum {
   date,
   title,
 }
+
+export interface SavedLikes {
+  [Key: Media["photographerId"]]: Media["id"][];
+}
+
+export type LikesHelperType = {
+  savedLikes: SavedLikes;
+  getLikesByPhotographer: () => number;
+  addLike: () => void;
+  removeLike: () => void;
+};
