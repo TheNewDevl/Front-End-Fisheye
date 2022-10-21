@@ -26,3 +26,9 @@ select {
 select option {
     font-weight: normal;
 }
+
+@media screen and (max-width: 768px) {
+    select {
+        padding: 5px 30px 5px 5px;
+    }
+}
