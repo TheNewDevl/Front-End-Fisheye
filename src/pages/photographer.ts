@@ -6,6 +6,7 @@ import { MediaFactory } from "../factories/media.js";
 import { Lightbox } from "../factories/Lightbox.js";
 import { initForm } from "../factories/contactForm.js";
 import { Sort } from "../utils/sortFns.js";
+import { handlePageLoader } from "../utils/loader.js";
 
 type returnData = {
   photographer: Photographer;
@@ -33,7 +34,7 @@ async function displayPhotographerHeader(photographer, medias) {
   photographerHeader.appendChild(photographerInfos);
 }
 
-async function displayMedias(medias: MediaArray, photographer: Photographer) {
+async function displayMedias(medias: MediaArray) {
   const container = document.querySelector(".medias-container");
   medias.forEach((media) => {
     const { getMediaDOM } = MediaFactory(media);
@@ -44,7 +45,7 @@ async function displayMedias(medias: MediaArray, photographer: Photographer) {
 
 function sortMedias() {
   const select = document.querySelector("select");
-  select.addEventListener("change", (e: InputEvent) => {
+  select.addEventListener("change", () => {
     if (SortEnum[select.value] !== undefined) Sort(SortEnum[select.value]);
   });
 }
@@ -57,7 +58,11 @@ async function init() {
   const { photographer, medias } = await getDatas(id);
 
   await displayPhotographerHeader(photographer, medias);
-  await displayMedias(medias, photographer);
+  await displayMedias(medias);
+
+  //init loader - will be removed when photos are loaded
+  handlePageLoader();
+
   const links = [
     ...document.querySelectorAll(
       'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'

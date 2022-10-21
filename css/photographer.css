@@ -285,3 +285,12 @@ form button:hover, select:hover, .contact_button:hover {
     font-size: 14px;
     color: #FFF;
 }
+
+
+/*loader test*/
+
+.loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8) url("../assets/icons/loader-white.svg") center center no-repeat;
+}

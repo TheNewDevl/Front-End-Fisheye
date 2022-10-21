@@ -1,7 +1,8 @@
 import { SortEnum } from "../types.js";
+import { handlePageLoader } from "./loader.js";
 
 export const Sort = (type: SortEnum) => {
-  console.log({ type });
+  handlePageLoader(300);
   const container = document.querySelector(".medias-container");
   const mediasArray = [...container.querySelectorAll("article")];
 
