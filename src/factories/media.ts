@@ -15,11 +15,11 @@ export function MediaFactory(data: Media) {
       document.createElement(elementType);
 
     media.setAttribute("src", src);
-    media.setAttribute("role", "link");
 
     if (media.tagName === "VIDEO") {
       media.setAttribute("muted", "true");
       media.setAttribute("autoplay", "true");
+      media.setAttribute("title", title);
     }
 
     media.setAttribute("alt", title);
@@ -41,7 +41,7 @@ export function MediaFactory(data: Media) {
       numberContainer.textContent = (likes + 1).toString();
     }
 
-    // when this event is catched, the total likes will be updated
+    // when this event is caught, the total likes will be updated
     const likeEvent = new Event("like");
     dispatchEvent(likeEvent);
   };

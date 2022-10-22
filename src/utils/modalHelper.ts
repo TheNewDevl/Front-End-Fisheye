@@ -35,24 +35,27 @@ export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("no-scroll");
-    openBtn.focus();
+    if (openBtn) openBtn.focus();
 
     // remove listener
     document.removeEventListener("keyup", keyDown);
   };
 
   const onOpenModal = () => {
+    modal.style.display = "flex";
     const closeBtn: HTMLElement = document.querySelector(".close-btn");
 
     mainContent.forEach((item) => {
       item.setAttribute("aria-hidden", "true");
     });
-    modal.style.display = "flex";
     modal.setAttribute("aria-hidden", "false");
-    closeBtn.focus();
+
+    if (closeBtn) {
+      closeBtn.focus();
+      closeBtn.addEventListener("click", onModalClose);
+    }
 
     document.body.classList.add("no-scroll");
-    closeBtn.addEventListener("click", onModalClose);
 
     // listen to escape click and close modal
     document.addEventListener("keydown", keyDown);
