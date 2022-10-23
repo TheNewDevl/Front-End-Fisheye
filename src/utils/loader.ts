@@ -10,7 +10,11 @@ export const handlePageLoader = (delay = 5000) => {
   onOpenModal();
 
   //in any case remove the loader after the given time
-  setTimeout(() => onModalClose(), delay);
+  setTimeout(() => {
+    if (loaderContainer.style.display !== "none") {
+      onModalClose();
+    }
+  }, delay);
 
   //images in the page
   const images: NodeListOf<HTMLImageElement> =

@@ -75,7 +75,7 @@ async function init() {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const target = e.currentTarget as HTMLAnchorElement;
-      const lightbox = Lightbox(target.getAttribute("href"), images);
+      const lightbox = Lightbox(e, target.getAttribute("href"), images);
       lightbox.init();
     })
   );

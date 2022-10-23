@@ -161,6 +161,7 @@
     display: none;
     background-color: rgba(255, 255, 255, 0.6);
     overflow: auto;
+    transition: opacity 300ms;
 }
 
 .modal {
@@ -324,11 +325,12 @@ input {
     }
 }
 
-form button:hover, select:hover, .contact_button {
+form button, select, .contact_button {
     transition: background-color 300ms, color 300ms;
 }
 
-form button:hover, select:hover, .contact_button:hover {
+form button:hover, select:hover, .contact_button:hover,
+form button:focus, select:focus, .contact_button:focus {
     background-color: #D3573C;
     color: #000;
 }
@@ -342,6 +344,8 @@ form button:hover, select:hover, .contact_button:hover {
 /* LOADER */
 
 .loader {
+    z-index: 10;
+    transition: opacity 300ms;
     display: block;
     position: fixed;
     inset: 0;

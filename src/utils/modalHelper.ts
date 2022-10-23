@@ -1,5 +1,11 @@
-export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
-  const mainContent = document.querySelectorAll("body > *:not(#modal)");
+export const modalHelper = (
+  modal: HTMLElement,
+  openBtn: HTMLElement,
+  haveToBeRemoved?: boolean
+) => {
+  const mainContent = document.querySelectorAll(
+    "body > *:not(#modal):not(.loader)"
+  );
 
   const keyDown = (e) => {
     if (e.key !== "Escape" && e.key !== "Tab") return;
@@ -29,21 +35,27 @@ export const modalHelper = (modal: HTMLElement, openBtn: HTMLElement) => {
   };
 
   const onModalClose = () => {
+    modal.classList.add("fadeOut");
     mainContent.forEach((item) => {
       item.setAttribute("aria-hidden", "false");
     });
-    modal.style.display = "none";
+
+    window.setTimeout(() => {
+      modal.classList.remove("fadeOut");
+      haveToBeRemoved ? modal.remove() : (modal.style.display = "none");
+    }, 300);
+
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("no-scroll");
     if (openBtn) openBtn.focus();
 
     // remove listener
-    document.removeEventListener("keyup", keyDown);
+    document.removeEventListener("keydown", keyDown);
   };
 
   const onOpenModal = () => {
     modal.style.display = "flex";
-    const closeBtn: HTMLElement = document.querySelector(".close-btn");
+    const closeBtn: HTMLElement = modal.querySelector(".close-btn");
 
     mainContent.forEach((item) => {
       item.setAttribute("aria-hidden", "true");

@@ -1,6 +1,8 @@
+import { modalHelper } from "../utils/modalHelper.js";
+
 type ImgUrl = string;
 
-export function Lightbox(url: ImgUrl, images: ImgUrl[]) {
+export function Lightbox(e, url: ImgUrl, images: ImgUrl[]) {
   //store the current displayed img url to be able to navigate
   let currentUrl: ImgUrl = url;
 
@@ -14,11 +16,6 @@ export function Lightbox(url: ImgUrl, images: ImgUrl[]) {
   /** Add a fadeOut animation, remove lightbox from the DOM & clean event listener */
   const close = (e: MouseEvent | KeyboardEvent) => {
     e.preventDefault();
-    element.classList.add("fadeOut");
-    window.setTimeout(() => {
-      element.remove();
-    }, 500);
-
     document.removeEventListener("keyup", onKeyUp);
   };
 
@@ -73,7 +70,7 @@ export function Lightbox(url: ImgUrl, images: ImgUrl[]) {
     const dom = document.createElement("div");
     dom.classList.add("lightbox");
     dom.innerHTML = `
-         <button class="lightbox-close">Fermer</button>
+         <button class="lightbox-close close-btn">Fermer</button>
          <button class="lightbox-next">suivant</button>
          <button class="lightbox-prev">precedent</button>
          <div class="lightbox-container"></div>
@@ -91,7 +88,9 @@ export function Lightbox(url: ImgUrl, images: ImgUrl[]) {
 
   /** Append lightbox to the body document, and load first image */
   const init = () => {
+    const { onOpenModal } = modalHelper(element, e.currentTarget, true);
     document.body.appendChild(element);
+    onOpenModal();
     document.addEventListener("keyup", onKeyUp);
     loadMedia(currentUrl);
   };
