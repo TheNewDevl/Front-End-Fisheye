@@ -50,6 +50,23 @@ function sortMedias() {
   });
 }
 
+const initLightbox = (medias: MediaArray) => {
+  const links = [
+    ...document.querySelectorAll(
+      'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
+    ),
+  ];
+
+  links.forEach((link: HTMLAnchorElement) =>
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = e.currentTarget as HTMLAnchorElement;
+      const lightbox = Lightbox(e, target.getAttribute("href"), medias);
+      lightbox.init();
+    })
+  );
+};
+
 async function init() {
   const urlParams = new URL(document.location.href).searchParams;
   const id = parseInt(urlParams.get("id"));
@@ -57,34 +74,21 @@ async function init() {
   // Get photograoher Data
   const { photographer, medias } = await getDatas(id);
 
+  //display datas
   await displayPhotographerHeader(photographer, medias);
   await displayMedias(medias);
 
   //init loader - will be removed when photos are loaded
   handlePageLoader();
 
-  const links = [
-    ...document.querySelectorAll(
-      'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
-    ),
-  ];
-
-  const images = links.map((link) => link.getAttribute("href"));
-
-  links.forEach((link: HTMLAnchorElement) =>
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const target = e.currentTarget as HTMLAnchorElement;
-      const lightbox = Lightbox(e, target.getAttribute("href"), images);
-      lightbox.init();
-    })
-  );
-
   //init form modal
   initForm(photographer.name);
 
   //init sort event listener on select
   sortMedias();
+
+  //init lightbox listeners
+  initLightbox(medias);
 }
 
 init();

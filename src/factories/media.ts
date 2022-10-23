@@ -97,5 +97,5 @@ export function MediaFactory(data: Media) {
     return article;
   }
 
-  return { getMediaDOM };
+  return { getMediaDOM, getImg };
 }
