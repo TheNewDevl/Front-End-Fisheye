@@ -65,7 +65,7 @@
     max-height: calc(100vh - 100px);
     cursor: zoom-in;
     border-radius: 5px;
-    box-shadow: 5px 0 #C4C4C4;
+    border-right: 5px solid #C4C4C4;
 }
 
 img.big, video.big {
