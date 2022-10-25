@@ -25,9 +25,8 @@ export const likesHelper = (
 
   /** filter the given media id from photographerId array */
   const removeLike = () => {
-    savedLikes[photographerId] = savedLikes[photographerId].filter(
-      (i) => i !== id
-    );
+    const index = savedLikes[photographerId].findIndex((i) => i === id);
+    savedLikes[photographerId].splice(index, 1);
     save();
   };
 
