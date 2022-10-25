@@ -78,7 +78,6 @@
 }
 
 .media-banner {
-    height: 50px;
     display: flex;
     justify-content: space-between;
     color: #901C1C;
@@ -88,6 +87,7 @@
 .media-banner p {
     font-size: 24px;
     line-height: 31px;
+    margin: 0;
 }
 
 .media-banner-likes {
