@@ -44,6 +44,8 @@ export function MediaFactory(data: Media) {
     }
 
     media.setAttribute("alt", title);
+    media.setAttribute("tabindex", "0");
+
     return media;
   };
 

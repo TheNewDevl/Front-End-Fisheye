@@ -11,7 +11,7 @@ export const modalHelper = (
     if (e.key !== "Escape" && e.key !== "Tab") return;
 
     const focusableElements: NodeListOf<HTMLElement> = modal.querySelectorAll(
-      "button, [href], input"
+      "button, [href], input, video, img"
     );
     const firstFocusable: HTMLElement = focusableElements[0];
     const lastFocusable: HTMLElement =
