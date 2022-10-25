@@ -19,6 +19,7 @@ export function MediaFactory(data: Media) {
     if (media.tagName === "VIDEO") {
       media.setAttribute("muted", "true");
       media.setAttribute("autoplay", "true");
+      media.setAttribute("controls", "");
       media.setAttribute("title", title);
     }
 
