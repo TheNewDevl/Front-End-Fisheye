@@ -46,7 +46,13 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     const isVideo = !!media.video;
 
     const container = element.querySelector(".lightbox-container");
+    container.classList.remove("big");
     container.innerHTML = ""; //clean the container before setting new media
+
+    //set media title
+    const mediaTitle = document.createElement("h1");
+    mediaTitle.setAttribute("id", "lightbox-title");
+    mediaTitle.textContent = media.title;
 
     //get img or video element from MediaFactory
     const { getImg } = MediaFactory(media);
@@ -65,8 +71,15 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     mediaDOM[isVideo ? "oncanplay" : "onload"] = () => {
       container.removeChild(loader);
       container.appendChild(mediaDOM);
+      container.appendChild(mediaTitle);
       currentUrl = media.image ? media.image : media.video;
     };
+
+    //handle full screen image
+    mediaDOM.addEventListener("click", () => {
+      mediaDOM.classList.toggle("big");
+      container.classList.toggle("big");
+    });
   };
 
   /** Create the lightbox, init event listeners and return lightbox dom */
@@ -75,7 +88,7 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     dom.classList.add("lightbox");
     dom.setAttribute("role", "dialog");
     dom.setAttribute("aria-label", "image closeup view");
-    dom.setAttribute("aria-describedby", "img-title");
+    dom.setAttribute("aria-describedby", "lightbox-title");
 
     dom.innerHTML = `
          <button class="lightbox-close close-btn">Fermer</button>
