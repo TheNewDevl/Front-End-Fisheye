@@ -106,3 +106,19 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
 
   return { init };
 }
+
+export const initLightbox = (medias: MediaArray) => {
+  const links = [
+    ...document.querySelectorAll(
+      'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
+    ),
+  ];
+  links.forEach((link: HTMLAnchorElement) =>
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = e.currentTarget as HTMLAnchorElement;
+      const lightbox = Lightbox(e, target.getAttribute("href"), medias);
+      lightbox.init();
+    })
+  );
+};

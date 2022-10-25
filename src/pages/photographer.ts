@@ -3,10 +3,11 @@ import { MediaArray, Photographer, SortEnum } from "../types.js";
 import { photographerFactory } from "../factories/photographer.js";
 import getData from "../utils/fetch.js";
 import { MediaFactory } from "../factories/media.js";
-import { Lightbox } from "../factories/Lightbox.js";
+import { initLightbox } from "../factories/Lightbox.js";
 import { initForm } from "../factories/contactForm.js";
 import { Sort } from "../utils/sortFns.js";
 import { handlePageLoader } from "../utils/loader.js";
+import { noMedias, noPhotographer } from "../utils/displayErrors.js";
 
 type returnData = {
   photographer: Photographer;
@@ -50,45 +51,41 @@ function sortMedias() {
   });
 }
 
-const initLightbox = (medias: MediaArray) => {
-  const links = [
-    ...document.querySelectorAll(
-      'a[href$=".jpg"], a[href$=".jpeg"], a[href$=".mp4"]'
-    ),
-  ];
-
-  links.forEach((link: HTMLAnchorElement) =>
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const target = e.currentTarget as HTMLAnchorElement;
-      const lightbox = Lightbox(e, target.getAttribute("href"), medias);
-      lightbox.init();
-    })
-  );
-};
-
 async function init() {
   const urlParams = new URL(document.location.href).searchParams;
   const id = parseInt(urlParams.get("id"));
 
+  // return error if there is no id
+  if (!id) {
+    handlePageLoader(0);
+    return noPhotographer();
+  }
+
   // Get photograoher Data
   const { photographer, medias } = await getDatas(id);
 
-  //display datas
-  await displayPhotographerHeader(photographer, medias);
-  await displayMedias(medias);
+  //if there is a photographer display photographer data and init form
+  if (!photographer) {
+    handlePageLoader(0);
+    return noPhotographer();
+  } else {
+    await displayPhotographerHeader(photographer, medias);
+    initForm(photographer.name); //init form modal
+  }
 
-  //init loader - will be removed when photos are loaded
+  //display medias only if back end return medias to display
+  if (medias && medias.length > 0) {
+    await displayMedias(medias);
+    sortMedias(); //init sort event listener on select
+    initLightbox(medias); //init lightbox listeners
+    handlePageLoader();
+  } else {
+    handlePageLoader(0);
+    return noMedias(
+      "Ce photographe n'a pas encore de photos, contactez le ou retournez à l'accueil."
+    );
+  }
   handlePageLoader();
-
-  //init form modal
-  initForm(photographer.name);
-
-  //init sort event listener on select
-  sortMedias();
-
-  //init lightbox listeners
-  initLightbox(medias);
 }
 
 init();
