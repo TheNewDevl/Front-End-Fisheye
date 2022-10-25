@@ -117,6 +117,14 @@
     gap: 7px;
 }
 
+article a img {
+    transition: transform 500ms ease-in-out;
+}
+
+article a img:hover {
+    transform: scale(1.2);
+}
+
 /* INSERT */
 
 .fixed-insert {
