@@ -56,7 +56,7 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
 
     //get img or video element from MediaFactory
     const { getImg } = MediaFactory(media);
-    const mediaDOM = getImg();
+    const mediaDOM = getImg(true);
     isVideo && mediaDOM.setAttribute("controls", "");
 
     //prevent changing img when try to advance or rewind the video on keyboard

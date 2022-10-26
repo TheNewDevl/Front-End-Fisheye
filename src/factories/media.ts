@@ -26,15 +26,20 @@ export function MediaFactory(data: Media) {
   const { savedLikes } = likesHelper(id, photographerId);
 
   const isLiked = savedLikes[photographerId]?.includes(id);
-  const src = `assets/photographers/${photographerId}/${image ? image : video}`;
+  const bigSizeSrc = `assets/photographers/${photographerId}/${
+    image ? image : video
+  }`;
+  const minSizeSrc = `assets/photographers/min/${photographerId}/${
+    image ? image : video
+  }`;
 
-  const getImg = () => {
+  const getImg = (isLarge?: boolean) => {
     const elementType = video ? "video" : "img";
 
     const media: HTMLVideoElement | HTMLImageElement =
       document.createElement(elementType);
 
-    media.setAttribute("src", src);
+    media.setAttribute("src", isLarge ? bigSizeSrc : minSizeSrc);
 
     if (media.tagName === "VIDEO") {
       media.setAttribute("muted", "true");
@@ -107,7 +112,7 @@ export function MediaFactory(data: Media) {
     const media = getImg();
 
     const link = document.createElement("a");
-    link.setAttribute("href", src);
+    link.setAttribute("href", bigSizeSrc);
     link.setAttribute("aria-label", `Ouvre l'image ${title}`);
     link.appendChild(media);
 
