@@ -81,8 +81,8 @@ export function MediaFactory(data: Media) {
     const bannerDiv = document.createElement("div");
     bannerDiv.classList.add("media-banner");
 
-    const titleP = document.createElement("p");
-    titleP.textContent = title;
+    const mediaHeading = document.createElement("h2");
+    mediaHeading.textContent = title;
 
     const likesBtn = document.createElement("button");
     likesBtn.classList.add("media-banner-likes");
@@ -96,7 +96,7 @@ export function MediaFactory(data: Media) {
     likesBtn.appendChild(likesNumber);
     likesBtn.insertAdjacentHTML("beforeend", heartSvg(isLiked));
 
-    bannerDiv.appendChild(titleP);
+    bannerDiv.appendChild(mediaHeading);
     bannerDiv.appendChild(likesBtn);
 
     //init click event handle likes
