@@ -39,13 +39,14 @@ export function MediaFactory(data: Media) {
     const media: HTMLVideoElement | HTMLImageElement =
       document.createElement(elementType);
 
-    media.setAttribute("src", isLarge ? bigSizeSrc : minSizeSrc);
-
     if (media.tagName === "VIDEO") {
+      media.setAttribute("src", bigSizeSrc);
       media.setAttribute("muted", "true");
       media.setAttribute("autoplay", "true");
       media.setAttribute("controls", "");
       media.setAttribute("title", title);
+    } else if (media.tagName === "IMG") {
+      media.setAttribute("src", isLarge ? bigSizeSrc : minSizeSrc);
     }
 
     media.setAttribute("alt", title);
