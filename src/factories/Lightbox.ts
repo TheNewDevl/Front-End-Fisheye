@@ -83,23 +83,34 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
   };
 
   /** Create the lightbox, init event listeners and return lightbox dom */
-  const buildDOM = (): HTMLDivElement => {
-    const dom = document.createElement("div");
-    dom.classList.add("lightbox");
-    dom.setAttribute("role", "dialog");
-    dom.setAttribute("aria-label", "image closeup view");
-    dom.setAttribute("aria-describedby", "lightbox-title");
+  const buildDOM = (): HTMLElement => {
+    const dom = document.createElement("main");
 
-    dom.innerHTML = `
-         <button class="lightbox-close close-btn">Fermer</button>
-         <button class="lightbox-next">suivant</button>
-         <button class="lightbox-prev">precedent</button>
-         <div class="lightbox-container"></div>
-    `;
+    const lightbox = document.createElement("div");
+    lightbox.classList.add("lightbox");
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-label", "image closeup view");
+    lightbox.setAttribute("aria-describedby", "lightbox-title");
 
-    dom.querySelector(".lightbox-close").addEventListener("click", close);
-    dom.querySelector(".lightbox-next").addEventListener("click", next);
-    dom.querySelector(".lightbox-prev").addEventListener("click", prev);
+    const prevBtn = document.createElement("button");
+    prevBtn.classList.add("lightbox-prev");
+    prevBtn.textContent = "Image précédente";
+    const nextBtn = document.createElement("button");
+    nextBtn.classList.add("lightbox-next");
+    nextBtn.textContent = "Image suivante";
+    const closeBtn = document.createElement("button");
+    closeBtn.classList.add("lightbox-close", "close-btn");
+    closeBtn.textContent = "Fermer la lightbox";
+
+    const lightboxMediaContainer = document.createElement("div");
+    lightboxMediaContainer.classList.add("lightbox-container");
+
+    lightbox.append(nextBtn, prevBtn, closeBtn, lightboxMediaContainer);
+    dom.appendChild(lightbox);
+
+    lightbox.querySelector(".lightbox-close").addEventListener("click", close);
+    lightbox.querySelector(".lightbox-next").addEventListener("click", next);
+    lightbox.querySelector(".lightbox-prev").addEventListener("click", prev);
 
     return dom;
   };
