@@ -1,7 +1,14 @@
-import { Photographer, PhotographerDetail } from "../types.js";
+import {
+  Photographer,
+  PhotographerDetail,
+  PhotographerFactory,
+} from "../types.js";
 import { likesHelper } from "./likes.js";
 
-export function photographerFactory(data: Photographer, medias?) {
+export function photographerFactory(
+  data: Photographer,
+  medias?
+): PhotographerFactory {
   const { name, portrait, id, country, tagline, price, city } = data;
 
   const picture = `assets/photographers/${portrait}`;
@@ -87,7 +94,7 @@ export function photographerFactory(data: Photographer, medias?) {
   }
 
   /** update text content using sum of photographer medias likes & localstorage*/
-  const _totalLikes = (totalLikesDom: HTMLSpanElement) => {
+  const _totalLikes = (totalLikesDom: HTMLSpanElement): number => {
     const { getLikesByPhotographer } = likesHelper(null, id);
 
     const baseLikes = medias.reduce((acc, current) => acc + current.likes, 0);
@@ -120,19 +127,24 @@ export function photographerFactory(data: Photographer, medias?) {
     return likesP;
   };
 
-  const getInsert = () => {
+  /** create the fixed insert that contains total likes and photographer price*/
+  const getInsert = (): HTMLParagraphElement => {
     const insert = document.createElement("p");
     insert.classList.add("fixed-insert");
 
     const price = getDetailSpan(PhotographerDetail.price);
-    price.classList.remove("photographer-price");
+    price.classList.remove("photographer-price"); // different style
 
+    //get total likes
     const likes = getTotalLikes();
+
+    //append likes and price
     insert.appendChild(likes);
     insert.appendChild(price);
     return insert;
   };
 
+  /** return a full Photographer header  */
   const getPhotographerHeaderDOM = () => {
     const container = document.createElement("div");
     const h1 = getHeading();
@@ -148,9 +160,7 @@ export function photographerFactory(data: Photographer, medias?) {
     name,
     picture,
     getUserCardDOM,
-    getHeading,
     getImg,
     getPhotographerHeaderDOM,
-    getDetailSpan,
   };
 }

@@ -13,12 +13,13 @@ async function getPhotographers(): Promise<PhotographersArray> {
   }
 }
 
-async function displayData(photographers) {
+/** display photographers using photographer factory */
+async function displayData(photographers: PhotographersArray) {
   const photographersSection = document.querySelector(".photographer_section");
 
   photographers.forEach((photographer) => {
-    const photographerModel = photographerFactory(photographer);
-    const userCardDOM = photographerModel.getUserCardDOM();
+    const { getUserCardDOM } = photographerFactory(photographer);
+    const userCardDOM = getUserCardDOM();
     photographersSection.appendChild(userCardDOM);
   });
 }
@@ -33,5 +34,3 @@ async function init() {
 }
 
 init();
-
-export default getPhotographers;

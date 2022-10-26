@@ -1,13 +1,12 @@
 import { modalHelper } from "../utils/modalHelper.js";
-import { Media, MediaArray } from "../types.js";
+import { ImgUrl, Media, MediaArray } from "../types.js";
 import { MediaFactory } from "./media.js";
-
-type ImgUrl = string;
 
 export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
   //store the current displayed img url to be able to navigate
   let currentUrl: ImgUrl = url;
 
+  /**return the index of currentUrl in medias array*/
   const getIndex = (images) => {
     return images.findIndex((i) =>
       i.image ? currentUrl.includes(i.image) : currentUrl.includes(i.video)
@@ -129,6 +128,7 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
   return { init };
 }
 
+/** for each media links in the page, add a click event that will run the lightbox */
 export const initLightbox = (medias: MediaArray) => {
   const links = [
     ...document.querySelectorAll(

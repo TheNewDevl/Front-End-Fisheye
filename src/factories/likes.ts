@@ -1,5 +1,6 @@
 import { LikesHelperType, Media, Photographer, SavedLikes } from "../types.js";
 
+/** handle localstorage likes */
 export const likesHelper = (
   id: Media["id"] | null,
   photographerId: Photographer["id"]

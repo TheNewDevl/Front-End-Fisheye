@@ -1,5 +1,10 @@
 import { modalHelper } from "../utils/modalHelper.js";
-import { Photographer, ValidatorReturn } from "../types";
+import {
+  Contact,
+  ModalHelper,
+  Photographer,
+  ValidatorReturn,
+} from "../types.js";
 import { validator } from "../utils/formValidators.js";
 
 const CTA: HTMLElement = document.querySelector(".contact_button");
@@ -31,7 +36,7 @@ export const removeError = (input: HTMLInputElement) => {
 };
 
 /** return false if one or more input values are not valid and display errors */
-const checkFormValidity = (inputs: NodeListOf<HTMLInputElement>) => {
+const checkFormValidity = (inputs: NodeListOf<HTMLInputElement>): boolean => {
   let formValidity = true;
   inputs.forEach((input) => {
     const validation = validator[input.id](input);
@@ -45,12 +50,16 @@ const checkFormValidity = (inputs: NodeListOf<HTMLInputElement>) => {
   return formValidity;
 };
 
-const handleSubmit = (e: MouseEvent, onModalClose) => {
+const handleSubmit = (
+  e: MouseEvent,
+  onModalClose: ModalHelper["onModalClose"]
+) => {
   e.preventDefault();
-  const inputs = document.querySelectorAll("input");
+  const inputs: NodeListOf<HTMLInputElement> =
+    document.querySelectorAll("input");
 
   if (checkFormValidity(inputs)) {
-    let contact = {};
+    let contact: Contact = {};
 
     //return values and reset
     inputs.forEach((i) => {
@@ -58,15 +67,18 @@ const handleSubmit = (e: MouseEvent, onModalClose) => {
       i.value = "";
     });
     console.log(contact);
+    //close modal
     onModalClose();
   } else {
     console.log("Il y a une erreur dans le formulaire ");
   }
 };
 
+/** Init form listeners */
 export const initForm = (photographerName: Photographer["name"]) => {
   const { onOpenModal, onModalClose } = modalHelper(form, CTA);
 
+  // use photographer name to custom the form header
   form.querySelector("h1").innerHTML = `Contactez-moi ${photographerName}`;
   CTA.addEventListener("click", onOpenModal);
 

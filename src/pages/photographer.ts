@@ -14,27 +14,36 @@ type returnData = {
   medias: MediaArray;
 };
 
+/** Return photographer and his medias using id param*/
 async function getDatas(id: Photographer["id"]): Promise<returnData> {
-  const { photographers, media } = await getData();
-  const photographer = photographers.find(
-    (photographer) => photographer.id === id
-  );
-  const medias = media.filter((m) => m.photographerId === id);
-
-  return { photographer, medias };
+  try {
+    const { photographers, media } = await getData();
+    const photographer = photographers.find(
+      (photographer) => photographer.id === id
+    );
+    const medias = media.filter((m) => m.photographerId === id);
+    return { photographer, medias };
+  } catch (e) {
+    console.log(`L'erreur suivante est survenue : ${e.message}`);
+  }
 }
 
+/** Display Photographer page header using photographer factory */
 async function displayPhotographerHeader(photographer, medias) {
   const photographerHeader = document.querySelector(".photograph-header");
-  const photographerModel = photographerFactory(photographer, medias);
+  const { getImg, getPhotographerHeaderDOM } = photographerFactory(
+    photographer,
+    medias
+  );
 
-  const photographerImg = photographerModel.getImg();
-  const photographerInfos = photographerModel.getPhotographerHeaderDOM();
+  const photographerImg = getImg();
+  const photographerInfos = getPhotographerHeaderDOM();
 
   photographerHeader.appendChild(photographerImg);
   photographerHeader.appendChild(photographerInfos);
 }
 
+/** For each given media in medias param, append a media article using media factory */
 async function displayMedias(medias: MediaArray) {
   const container = document.querySelector(".medias-container");
   medias.forEach((media) => {
@@ -44,6 +53,7 @@ async function displayMedias(medias: MediaArray) {
   });
 }
 
+/** Add a change event listener to the select element */
 function sortMedias() {
   const select = document.querySelector("select");
   select.addEventListener("change", () => {

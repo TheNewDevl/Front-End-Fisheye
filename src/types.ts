@@ -64,3 +64,25 @@ export type LikesHelperType = {
   addLike: () => void;
   removeLike: () => void;
 };
+
+export interface Contact {
+  firstName?: HTMLInputElement["value"];
+  email?: HTMLInputElement["value"];
+  lastName?: HTMLInputElement["value"];
+  message?: HTMLInputElement["value"];
+}
+
+export interface ModalHelper {
+  onModalClose: () => void;
+  onOpenModal: () => void;
+}
+
+export type ImgUrl = string;
+
+export interface PhotographerFactory {
+  name: Photographer["name"];
+  picture: ImgUrl;
+  getUserCardDOM: () => HTMLElement;
+  getImg: () => HTMLImageElement;
+  getPhotographerHeaderDOM: () => HTMLElement;
+}
