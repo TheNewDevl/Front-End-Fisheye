@@ -1,7 +1,7 @@
 # Table of contents
 
 - [Overview](#overview)
-    - [The challenge](#run-project)
+    - [Run project](#run-project)
     - [Links](#links)
 - [My process](#my-process)
     - [Built with](#built-with)

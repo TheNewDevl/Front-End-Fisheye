@@ -59,9 +59,6 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     const mediaDOM = getImg(true);
     isVideo && mediaDOM.setAttribute("controls", "");
 
-    //prevent changing img when try to advance or rewind the video on keyboard
-    isVideo && mediaDOM.addEventListener("keyup", (e) => e.stopPropagation());
-
     //create loader and append it to the container
     const loader = document.createElement("div");
     loader.classList.add("lightbox-loader");
@@ -76,10 +73,11 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     };
 
     //handle full screen image
-    mediaDOM.addEventListener("click", () => {
-      mediaDOM.classList.toggle("big");
-      container.classList.toggle("big");
-    });
+    !isVideo &&
+      mediaDOM.addEventListener("click", () => {
+        mediaDOM.classList.toggle("big");
+        container.classList.toggle("big");
+      });
   };
 
   /** Create the lightbox, init event listeners and return lightbox dom */
@@ -105,7 +103,7 @@ export function Lightbox(e, url: ImgUrl, medias: MediaArray) {
     const lightboxMediaContainer = document.createElement("div");
     lightboxMediaContainer.classList.add("lightbox-container");
 
-    lightbox.append(nextBtn, prevBtn, closeBtn, lightboxMediaContainer);
+    lightbox.append(prevBtn, lightboxMediaContainer, nextBtn, closeBtn);
     dom.appendChild(lightbox);
 
     lightbox.querySelector(".lightbox-close").addEventListener("click", close);

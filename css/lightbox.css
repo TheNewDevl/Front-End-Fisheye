@@ -63,12 +63,15 @@
     animation: lightbowIn 500ms;
     display: block;
     max-height: calc(100vh - 100px);
-    cursor: zoom-in;
     border-radius: 5px;
     border-right: 5px solid #C4C4C4;
 }
 
-img.big, video.big {
+.lightbox-container img {
+    cursor: zoom-in;
+}
+
+img.big {
     max-height: unset;
     max-width: unset;
     width: 100%;
